@@ -5,9 +5,9 @@ This is  the `PullView` component in React Native both for Android and iOS, pull
 This is a JavaScript-only implementation of `PullView` in React Native. Like `ScrollView`, this can host multiple components and views.  Better than scrollview in Android, this PullView can be pull down, then show top indicator, the top indicator have three state: **pulling**, **pullok**, **pullrelease**. And more, you can use refreshControl to provide pull-to-refresh same as scrollview.
 
 ## Demo
-Demo project: (./react-native-pullview-demo)
-![](https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white_fe6da1ec.png)
-![](https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white_fe6da1ec.png)
+Demo project: https://github.com/greatbsky/react-native-pullview-demo
+![](https://raw.githubusercontent.com/greatbsky/react-native-pullview-demo/master/PullViewDemo/image/demo.gif)
+
 
 ## Usage
   1.Run `npm install react-native-pullview --save`
