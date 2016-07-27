@@ -44,4 +44,6 @@ Demo project: https://github.com/greatbsky/react-native-pullview-demo
 ## Licensed
 MIT License
 
-# 中文说明请参见：https://github.com/greatbsky/react-native-pullview/wiki
+# 中文说明请参见
+
+https://github.com/greatbsky/react-native-pullview/wiki
