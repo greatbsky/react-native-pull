@@ -5,29 +5,43 @@ This is  the `PullView` component in React Native both for Android and iOS, pull
 This is a JavaScript-only implementation of `PullView` in React Native. Like `ScrollView`, this can host multiple components and views.  Better than scrollview in Android, this PullView can be pull down, then show top indicator, the top indicator have three state: **pulling**, **pullok**, **pullrelease**. And more, you can use refreshControl to provide pull-to-refresh same as scrollview.
 
 ## Demo
-Demo project: (./react-native-pullview-demo)
-![](https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white_fe6da1ec.png)
-![](https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white_fe6da1ec.png)
+Demo project: https://github.com/greatbsky/react-native-pullview-demo
+
+![](https://raw.githubusercontent.com/greatbsky/react-native-pullview-demo/master/PullViewDemo/image/demo.gif)
 
 ## Usage
-  1.Run `npm install react-native-pullview --save`
-  2.Code like this:
+  1. Run `npm install react-native-pullview --save`
+  2. Code like this:
   ```
-  topIndicatorRender(pulling, pullok, pullrelease) {
-      return <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: 60}}>
-          <ActivityIndicator size="small" color="gray" />
-          {pulling ? <Text>下拉刷新2...</Text> : null}
-          {pullok ? <Text>松开刷新2......</Text> : null}
-          {pullrelease ? <Text>玩命刷新中2......</Text> : null}
-      </View>;
+  import PullView from 'react-native-pullview';
+
+  onPullRelease(resolve) {
+    //do something
+    resolve();
   }
-  <ScrollView onPullRelease={this.props.onRefresh} topIndicatorRender={this.topIndicatorRender} topIndicatorHeight={60} ></ScrollView>
+
+  <PullView onPullRelease={this.onPullRelease}>
+  //sth...
+  </PullView>
   ```
-  
+  3. Full demo code visit: https://github.com/greatbsky/react-native-pullview-demo
+
   ## More configuration
-  
-  
-  
+
+  **pull down props**
+  * **`onPulling`**: handle function when `pulling`
+  * **`onPullOk`**: handle function when `pullok`
+  * **`onPullRelease`**: handle function when `pullrelease`
+  * **`topIndicatorRender`**: top indicator render function, access 3 argument: ispulling, ispullok, ispullrelease
+  * **`topIndicatorHeight`**: top indicator height, require if define topIndicatorRender
+  * **`isPullEnd`**: whether release pull, if true, will hide top indicator, not require
+
+  **other, refreshcontrol props**
+  support onRefresh & refreshing if you want to use refreshcontrol like scrollview.
+  * **`onRefresh`**: Called when the view starts refreshing
+  * **`refreshing`**: Whether the view should be indicating an active refresh.
+
 ## Licensed
 MIT License
-  
+
+# 中文说明请参见：https://github.com/greatbsky/react-native-pullview/wiki

@@ -38,7 +38,7 @@ const isUpGesture = (x, y) => {
 /**
 支持android可以下拉刷新的scrollview组件
 Demo:
-<ScrollView onPulling={} onPullOk={} onPullRelease={} topIndicator={} isPullEnd={true}
+<ScrollView onPulling={} onPullOk={} onPullRelease={} isPullEnd={true}
 topIndicatorRender={({pulling, pullok, pullrelease}) => {}} topIndicatorHeight={60}
 >
 
