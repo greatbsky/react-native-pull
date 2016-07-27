@@ -1,13 +1,13 @@
 # react-native-pullview
 
-This is  the `PullView` component in React Native both for Android and iOS, pull to refresh, very useful &amp; easily
+  This is  the `PullView` component in React Native both for Android and iOS, pull to refresh, very useful &amp; easily
 
-This is a JavaScript-only implementation of `PullView` in React Native. Like `ScrollView`, this can host multiple components and views.  Better than scrollview in Android, this PullView can be pull down, then show top indicator, the top indicator have three state: **pulling**, **pullok**, **pullrelease**. And more, you can use refreshControl to provide pull-to-refresh same as scrollview.
+  This is a JavaScript-only implementation of `PullView` in React Native. Like `ScrollView`, this can host multiple components and views.  Better than scrollview in Android, this PullView can be pull down, then show top indicator, the top indicator have three state: **pulling**, **pullok**, **pullrelease**. And more, you can use refreshControl to provide pull-to-refresh same as scrollview.
 
 ## Demo
-Demo project: https://github.com/greatbsky/react-native-pullview-demo
+  Demo project: https://github.com/greatbsky/react-native-pullview-demo
 
-![](https://raw.githubusercontent.com/greatbsky/react-native-pullview-demo/master/PullViewDemo/image/demo.gif)
+  ![](https://raw.githubusercontent.com/greatbsky/react-native-pullview-demo/master/PullViewDemo/image/demo.gif)
 
 ## Usage
   1. Run `npm install react-native-pullview --save`
@@ -26,7 +26,7 @@ Demo project: https://github.com/greatbsky/react-native-pullview-demo
   ```
   3. Full demo code visit: https://github.com/greatbsky/react-native-pullview-demo
 
-  ## More configuration
+## More configuration
 
   **pull down props**
   * **`onPulling`**: handle function when `pulling`
@@ -42,8 +42,8 @@ Demo project: https://github.com/greatbsky/react-native-pullview-demo
   * **`refreshing`**: Whether the view should be indicating an active refresh.
 
 ## Licensed
-MIT License
+  MIT License
 
 # 中文说明请参见
 
-https://github.com/greatbsky/react-native-pullview/wiki
+  https://github.com/greatbsky/react-native-pullview/wiki
