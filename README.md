@@ -33,8 +33,8 @@
   ![](https://raw.githubusercontent.com/greatbsky/react-native-pullview-demo/master/PullViewDemo/image/demo.gif)
 
 ## `PullList` Usage
-    1. Run `npm install react-native-pullview --save`
-    2. Code like this:
+  1. Run `npm install react-native-pullview --save`
+  2. Code like this:
   ```
     import {PullList} from 'react-native-pullview';
 
