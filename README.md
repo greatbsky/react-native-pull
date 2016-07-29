@@ -61,6 +61,7 @@
 
 
   **Just for `PullView`, refreshcontrol props** support onRefresh & refreshing if you want to use refreshcontrol like scrollview.
+  
   * **`onRefresh`**: Called when the view starts refreshing
   * **`refreshing`**: Whether the view should be indicating an active refresh.
 
