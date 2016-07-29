@@ -38,7 +38,9 @@ const isUpGesture = (x, y) => {
 /**
 支持android可以下拉刷新的scrollview组件
 Demo:
-<ScrollView onPulling={} onPullOk={} onPullRelease={} isPullEnd={true}
+import PullView from 'react-native-pullview';
+
+<PullView onPulling={} onPullOk={} onPullRelease={} isPullEnd={true}
 topIndicatorRender={({pulling, pullok, pullrelease}) => {}} topIndicatorHeight={60}
 >
 
@@ -51,7 +53,7 @@ Demo2:
             {pullrelease ? <Text>玩命刷新中2......</Text> : null}
         </View>;
     }
-    <ScrollView onPullRelease={this.props.onRefresh} topIndicatorRender={this.topIndicatorRender} topIndicatorHeight={60} ></ScrollView>
+    <PullView onPullRelease={this.props.onRefresh} topIndicatorRender={this.topIndicatorRender} topIndicatorHeight={60} ></PullView>
 
 Demo3:
 
@@ -66,7 +68,7 @@ Demo3:
         //     this.setState({refreshing: false});
         // }, 3000);
     }
-    <ScrollView refreshControl={} onRefresh={this.onRefresh} refreshing={this.state.refreshing}></ScrollView>
+    <PullView refreshControl={} onRefresh={this.onRefresh} refreshing={this.state.refreshing}></PullView>
 */
 
 export default class extends Component {
@@ -85,7 +87,8 @@ export default class extends Component {
         });
         this.onScroll = this.onScroll.bind(this);
         this.onLayout = this.onLayout.bind(this);
-        this.resetDefaultXY = this.resetDefaultXY.bind(this);
+        this.isPullState = this.isPullState.bind(this);
+        this.resetDefaultXYHandler = this.resetDefaultXYHandler.bind(this);
         this.panResponder = PanResponder.create({
             onStartShouldSetPanResponder: this.onShouldSetPanResponder.bind(this),
             onMoveShouldSetPanResponder: this.onShouldSetPanResponder.bind(this),
@@ -109,18 +112,22 @@ export default class extends Component {
 
     onPanResponderMove(e, gesture) {
         if (isUpGesture(gesture.dx, gesture.dy)) { //向上滑动
-            this.scroll.scrollTo({x:0, y: gesture.dy * -1});
+            if(this.isPullState()) {
+                this.resetDefaultXYHandler()
+            } else {
+                this.scroll.scrollTo({x:0, y: gesture.dy * -1});
+            }
             return;
         } else if (isDownGesture(gesture.dx, gesture.dy)) { //下拉
             this.state.pullPan.setValue({x: this.defaultXY.x, y: this.defaultXY.y + gesture.dy / 3});
             if (gesture.dy < this.state.topIndicatorHeight * 2 + this.pullOkMargin) {
                 if (!this.state.pulling) {
-                    this.props.onPulling && this.props.onPulling(this.resetDefaultXY);
+                    this.props.onPulling && this.props.onPulling(this.resetDefaultXYHandler);
                 }
                 this.setState({pulling: true, pullok: false, pullrelease: false}); //正在下拉
             } else {
                 if (!this.state.pullok) {
-                    this.props.onPullOk && this.props.onPullOk(this.resetDefaultXY);
+                    this.props.onPullOk && this.props.onPullOk(this.resetDefaultXYHandler);
                 }
                 this.setState({pulling: false, pullok: true, pullrelease: false}); //下拉到位
 
@@ -131,7 +138,7 @@ export default class extends Component {
     onPanResponderRelease(e, gesture) {
         if (this.state.pulling || this.state.pullok) {
             if (!this.state.pullrelease) {
-                this.props.onPullRelease && this.props.onPullRelease(this.resetDefaultXY);
+                this.props.onPullRelease && this.props.onPullRelease(this.resetDefaultXYHandler);
             }
             this.setState({pulling: false, pullok: false, pullrelease: true}); //完成下拉，已松开
             Animated.timing(this.state.pullPan, {
@@ -143,20 +150,25 @@ export default class extends Component {
     }
 
     onScroll(e) {
-        if (e.nativeEvent.contentOffset.y == 0) {
+        if (e.nativeEvent.contentOffset.y <= 0) {
             this.setState({scrollEnabled: this.defaultScrollEnabled});
-        } else {
+        } else if(!this.isPullState()) {
             this.setState({scrollEnabled: true});
         }
     }
 
-    resetDefaultXY() {
+    isPullState() {
+        return this.state.pulling || this.state.pullok || this.state.pullrelease;
+    }
+
+    resetDefaultXYHandler() {
+        this.setState({pulling: false, pullok: false, pullrelease: false});
         this.state.pullPan.setValue(this.defaultXY);
     }
 
     componentWillUpdate(nextProps, nextState) {
         if (nextProps.isPullEnd && this.state.pullrelease) {
-            this.resetDefaultXY();
+            this.resetDefaultXYHandler();
         }
     }
 
