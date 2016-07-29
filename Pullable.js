@@ -162,7 +162,7 @@ export default class extends Component {
             <View style={styles.wrap} onLayout={this.onLayout}>
                 <Animated.View ref={(c) => {this.ani = c;}} style={[this.state.pullPan.getLayout()]}>
                     {topIndicator}
-                    <View {...this.panResponder.panHandlers} style={{width: this.state.height, height: this.state.height}}>
+                    <View {...this.panResponder.panHandlers} style={{width: this.state.width, height: this.state.height}}>
                         {scrollable}
                     </View>
                 </Animated.View>
