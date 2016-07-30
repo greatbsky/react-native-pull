@@ -83,23 +83,25 @@ export default class extends Component {
             return;
         } else if (isDownGesture(gesture.dx, gesture.dy)) { //下拉
             this.state.pullPan.setValue({x: this.defaultXY.x, y: this.defaultXY.y + gesture.dy / 3});
-            if (gesture.dy < this.state.topIndicatorHeight * 2 + this.pullOkMargin) {
+            if (gesture.dy < this.state.topIndicatorHeight + this.pullOkMargin) { //正在下拉
                 if (!this.state.pulling) {
                     this.props.onPulling && this.props.onPulling(this.resetDefaultXYHandler);
                 }
-                this.setState({pulling: true, pullok: false, pullrelease: false}); //正在下拉
-            } else {
+                this.setState({pulling: true, pullok: false, pullrelease: false});
+            } else { //下拉到位
                 if (!this.state.pullok) {
                     this.props.onPullOk && this.props.onPullOk(this.resetDefaultXYHandler);
                 }
-                this.setState({pulling: false, pullok: true, pullrelease: false}); //下拉到位
-
+                this.setState({pulling: false, pullok: true, pullrelease: false});
             }
         }
     }
 
     onPanResponderRelease(e, gesture) {
-        if (this.state.pulling || this.state.pullok) {
+        if (this.state.pulling) { //没有下拉到位
+            this.resetDefaultXYHandler(); //重置状态
+        }
+        if (this.state.pullok) {
             if (!this.state.pullrelease) {
                 this.props.onPullRelease && this.props.onPullRelease(this.resetDefaultXYHandler);
             }
@@ -159,7 +161,7 @@ export default class extends Component {
         }
         var scrollable = this.getScrollable(refreshControl);
         return (
-            <View style={styles.wrap} onLayout={this.onLayout}>
+            <View style={[styles.wrap, this.props.style]} onLayout={this.onLayout}>
                 <Animated.View ref={(c) => {this.ani = c;}} style={[this.state.pullPan.getLayout()]}>
                     {topIndicator}
                     <View {...this.panResponder.panHandlers} style={{width: this.state.width, height: this.state.height}}>

@@ -6,6 +6,7 @@ import {
 
 export default StyleSheet.create({
     wrap: {
-        flex: 1, backgroundColor: '#fefefe', flexDirection: 'column'
+        flex: 1,
+        flexDirection: 'column',
     }
 });
