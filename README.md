@@ -50,7 +50,7 @@
 
 ## `PullView` & `PullList`  configuration
 
-** Pull down props for `PullView` &amp; `PullList` **
+**Pull down props for `PullView` &amp; `PullList`**
 
   * **`onPulling`**: handle function when `pulling`
   * **`onPullOk`**: handle function when `pullok`
