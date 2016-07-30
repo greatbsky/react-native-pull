@@ -30,11 +30,11 @@
 
 ## `PullList` Demo
 
-  ![](https://raw.githubusercontent.com/greatbsky/react-native-pullview-demo/master/PullViewDemo/image/demo.gif)
+  ![](https://raw.githubusercontent.com/greatbsky/react-native-pullview-demo/master/PullListDemo/image/demo.gif)
 
 ## `PullList` Usage
-    1. Run `npm install react-native-pullview --save`
-    2. Code like this:
+  1. Run `npm install react-native-pullview --save`
+  2. Code like this:
   ```
     import {PullList} from 'react-native-pullview';
 
@@ -50,7 +50,7 @@
 
 ## `PullView` & `PullList`  configuration
 
-  **Pull down props for `PullView` &amp; `PullList` **
+**Pull down props for `PullView` &amp; `PullList`**
 
   * **`onPulling`**: handle function when `pulling`
   * **`onPullOk`**: handle function when `pullok`
@@ -60,7 +60,8 @@
   * **`isPullEnd`**: whether release pull, if true, will hide top indicator, not require
 
 
-  **Just for `PullView`, refreshcontrol props** support onRefresh & refreshing if you want to use refreshcontrol like scrollview.
+**Just for `PullView`, refreshcontrol props** support onRefresh & refreshing if you want to use refreshcontrol like scrollview.
+  
   * **`onRefresh`**: Called when the view starts refreshing
   * **`refreshing`**: Whether the view should be indicating an active refresh.
 
