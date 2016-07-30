@@ -1,5 +1,10 @@
 # react-native-pull
 
+[![NPM Version](https://img.shields.io/npm/v/react-native-pull.svg?style=flat-square)](https://www.npmjs.com/package/react-native-pull)
+[![GitHub issues](https://img.shields.io/github/issues/greatbsky/react-native-pull.svg)](https://github.com/greatbsky/react-native-pull/issues)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/greatbsky/react-native-pull/master/LICENSE)
+
+
   This is  the `PullView` & `PullList` component in React Native both for Android and iOS, pull to refresh, very useful &amp; easily!
 
   This is a JavaScript-only implementation of `PullView` & `PullList` in React Native. Like `ScrollView` and `ListView`, `PullView` can host multiple components and views, `PullList` can efficient display of vertically scrolling lists of changing data. Better than ScrollView & ListView  in Android, this `PullView` & `PullList` can be pull down, then show top indicator, the top indicator have three state: **pulling**, **pullok**, **pullrelease**. And more, `PullView` also can make you use refreshControl to provide pull-to-refresh same as scrollview. `PullList` also can make you use any props like ListView.
