@@ -52,6 +52,7 @@
 
 **Pull down props for `PullView` &amp; `PullList`**
 
+  * **`style`**: stylesheet of component, set width/height/flex/backgroudColor... etc
   * **`onPulling`**: handle function when `pulling`
   * **`onPullOk`**: handle function when `pullok`
   * **`onPullRelease`**: handle function when `pullrelease`
