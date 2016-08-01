@@ -18,24 +18,16 @@ const padding = 2; //scrollview与外面容器的距离
 const pullOkMargin = 100; //下拉到ok状态时topindicator距离顶部的距离
 const defaultTopIndicatorHeight = 30; //顶部刷新指示器的高度
 const isDownGesture = (x, y) => {
-        if (Math.abs(x) / Math.abs(y) <= 1) { //纵向
-            if (y > 0) {
-                return true;
-            }
-        }
-        return false;
-    };
+    return y > 0 && (y > Math.abs(x));
+};
 const isUpGesture = (x, y) => {
-    if (Math.abs(x) / Math.abs(y) <= 1) { //纵向
-        if (y < 0) {
-            return true;
-        }
-    }
-    return false;
-}
+    return y < 0 && (Math.abs(x) < Math.abs(y));
+};
+const isVerticalGesture = (x, y) => {
+    return (Math.abs(x) < Math.abs(y));
+};
 
 export default class extends Component {
-
     constructor(props) {
         super(props);
         this.defaultScrollEnabled = !(this.props.onPulling || this.props.onPullOk || this.props.onPullRelease); //定义onPull***属性时scrollEnabled为false
@@ -63,7 +55,7 @@ export default class extends Component {
     }
 
     onShouldSetPanResponder(e, gesture) {
-        if (!isDownGesture(gesture.dx, gesture.dy) && !isUpGesture(gesture.dx, gesture.dy)) { //非向上 或向下手势不响应
+        if (!isVerticalGesture(gesture.dx, gesture.dy)) { //非向上 或向下手势不响应
             return false;
         }
         if (this.props.onPulling || this.props.onPullOk || this.props.onPullRelease) {
@@ -142,11 +134,11 @@ export default class extends Component {
     }
 
     render() {
-        var refreshControl = this.props.refreshControl;
+        let refreshControl = this.props.refreshControl;
         if (this.props.refreshControl == null && this.props.refreshing != null && this.props.onRefresh != null) {
             refreshControl = <RefreshControl refreshing={this.props.refreshing} onRefresh={this.props.onRefresh} />;
         }
-        var topIndicator;
+        let topIndicator;
         if (this.props.topIndicatorRender == null) {
             topIndicator = <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: defaultTopIndicatorHeight}}>
                 <ActivityIndicator size="small" color="gray" />
@@ -155,20 +147,19 @@ export default class extends Component {
                 {this.state.pullrelease ? <Text>玩命刷新中......</Text> : null}
             </View>;
         } else {
-            var {pulling, pullok, pullrelease} = this.state;
+            let {pulling, pullok, pullrelease} = this.state;
             topIndicator = this.props.topIndicatorRender(pulling, pullok, pullrelease);
         }
-        var scrollable = this.getScrollable(refreshControl);
+
         return (
             <View style={[styles.wrap, this.props.style]} onLayout={this.onLayout}>
                 <Animated.View ref={(c) => {this.ani = c;}} style={[this.state.pullPan.getLayout()]}>
                     {topIndicator}
                     <View {...this.panResponder.panHandlers} style={{width: this.state.width, height: this.state.height}}>
-                        {scrollable}
+                        {this.getScrollable(refreshControl)}
                     </View>
                 </Animated.View>
             </View>
         );
     }
-
 }

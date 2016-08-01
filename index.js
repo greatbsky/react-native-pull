@@ -1,7 +1,7 @@
 'use strict';
 
 import PullView from './PullView';
-import PullList from './PullList'
+import PullList from './PullList';
 
 export {
     PullView,
