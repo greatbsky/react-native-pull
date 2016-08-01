@@ -19,7 +19,8 @@
     "refresh",
     "React",
     "Native",
-    "ScrollView"
+    "ScrollView",
+    "ListView"
   ],
   "author": "architect.bian",
   "license": "MIT",

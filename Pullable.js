@@ -56,7 +56,6 @@ export default class extends Component {
             onStartShouldSetPanResponder: this.onShouldSetPanResponder.bind(this),
             onMoveShouldSetPanResponder: this.onShouldSetPanResponder.bind(this),
             onPanResponderGrant: () => {},
-            // onPanResponderMove: Animated.event([null, {dy: this.state.pullPan.y}]),
             onPanResponderMove: this.onPanResponderMove.bind(this),
             onPanResponderRelease: this.onPanResponderRelease.bind(this),
             onPanResponderTerminate: this.onPanResponderRelease.bind(this),
