@@ -1,11 +1,10 @@
-# react-native-pull [![ReactNative Version](https://img.shields.io/badge/ReactNative%20Version-0.30.0%2B-brightgreen.svg)](http://facebook.github.io/react-native/versions.html)
+# react-native-pull 
 
+[![reactnative Version](https://img.shields.io/badge/reactnative-0.30.0%2B-brightgreen.svg)](http://facebook.github.io/react-native/versions.html)
 [![NPM Version](https://img.shields.io/npm/v/react-native-pull.svg?style=flat-square)](https://www.npmjs.com/package/react-native-pull)
 [![GitHub issues](https://img.shields.io/github/issues/greatbsky/react-native-pull.svg)](https://github.com/greatbsky/react-native-pull/issues)
-[![GitHub forks](https://img.shields.io/github/forks/greatbsky/react-native-pull.svg)](https://github.com/greatbsky/react-native-pull/network)
 [![GitHub stars](https://img.shields.io/github/stars/greatbsky/react-native-pull.svg)](https://github.com/greatbsky/react-native-pull/stargazers)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/greatbsky/react-native-pull/master/LICENSE)
-[![GitHub release](https://img.shields.io/github/release/greatbsky/react-native-pull.svg?maxAge=2592000)]()
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/greatbsky/react-native-pull.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
 
 
