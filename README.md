@@ -2,7 +2,9 @@
 
 [![NPM Version](https://img.shields.io/npm/v/react-native-pull.svg?style=flat-square)](https://www.npmjs.com/package/react-native-pull)
 [![GitHub issues](https://img.shields.io/github/issues/greatbsky/react-native-pull.svg)](https://github.com/greatbsky/react-native-pull/issues)
+[![GitHub closed issues](https://img.shields.io/github/issues-closed/greatbsky/react-native-pull.svg?maxAge=2592001)](https://github.com/greatbsky/react-native-pull/issues?q=is%3Aissue+is%3Aclosed)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/greatbsky/react-native-pull/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/greatbsky/react-native-pull.svg?maxAge=2592000)]()
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/greatbsky/react-native-pull.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
 
 
