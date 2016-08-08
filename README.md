@@ -1,4 +1,4 @@
-# react-native-pull 
+# react-native-pull
 
 [![reactnative Version](https://img.shields.io/badge/reactnative-V0.30.0%2B-brightgreen.svg)](http://facebook.github.io/react-native/versions.html)
 [![NPM Version](https://img.shields.io/npm/v/react-native-pull.svg?style=flat-square)](https://www.npmjs.com/package/react-native-pull)
@@ -64,7 +64,8 @@
   * **`onPulling`**: handle function when `pulling`
   * **`onPullOk`**: handle function when `pullok`
   * **`onPullRelease`**: handle function when `pullrelease`
-  * **`topIndicatorRender`**: top indicator render function, access 3 argument: ispulling, ispullok, ispullrelease
+  * **`onPushing`**: handle function when pushing up, access 1 argument: gesturePosition. gesturePosition contain value {x,y}. gesturePosition.y > 0 when pulling down, gesturePosition.y < 0 when pushing up.
+  * **`topIndicatorRender`**: top indicator render function, access 4 argument: ispulling, ispullok, ispullrelease, gesturePosition. you can design yourself topIndicator with animation when pulling.
   * **`topIndicatorHeight`**: top indicator height, require if define topIndicatorRender
   * **`isPullEnd`**: whether release pull, if true, will hide top indicator, not require
 
