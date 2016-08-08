@@ -14,7 +14,7 @@ import {
 
 import styles from './style/index.css';
 
-const padding = 2; //scrollview与外面容器的距离
+// const padding = 2; //scrollview与外面容器的距离
 const pullOkMargin = 100; //下拉到ok状态时topindicator距离顶部的距离
 const defaultTopIndicatorHeight = 30; //顶部刷新指示器的高度
 const isDownGesture = (x, y) => {
@@ -39,6 +39,7 @@ export default class extends Component {
             scrollEnabled: this.defaultScrollEnabled,
             height: 0,
             topIndicatorHeight: topIndicatorHeight,
+            gesturePosition: {x: 0, y: 0}
         });
         this.onScroll = this.onScroll.bind(this);
         this.onLayout = this.onLayout.bind(this);
@@ -65,9 +66,12 @@ export default class extends Component {
     }
 
     onPanResponderMove(e, gesture) {
+        this.state.gesturePosition = {x: this.defaultXY.x, y: gesture.dy};
         if (isUpGesture(gesture.dx, gesture.dy)) { //向上滑动
             if(this.isPullState()) {
                 this.resetDefaultXYHandler()
+            } else if(this.props.onPushing && this.props.onPushing(this.state.gesturePosition)) {
+                // do nothing, handling by this.props.onPushing
             } else {
                 this.scroll.scrollTo({x:0, y: gesture.dy * -1});
             }
@@ -130,7 +134,7 @@ export default class extends Component {
 
     onLayout(e) {
         this.setState({width: e.nativeEvent.layout.width});
-        this.setState({height: e.nativeEvent.layout.height - padding});
+        this.setState({height: e.nativeEvent.layout.height});
     }
 
     render() {
@@ -140,15 +144,17 @@ export default class extends Component {
         }
         let topIndicator;
         if (this.props.topIndicatorRender == null) {
-            topIndicator = <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: defaultTopIndicatorHeight}}>
-                <ActivityIndicator size="small" color="gray" />
-                {this.state.pulling ? <Text>下拉刷新...</Text> : null}
-                {this.state.pullok ? <Text>松开刷新......</Text> : null}
-                {this.state.pullrelease ? <Text>玩命刷新中......</Text> : null}
-            </View>;
+            topIndicator = (
+                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: defaultTopIndicatorHeight}}>
+                    <ActivityIndicator size="small" color="gray" />
+                    {this.state.pulling ? <Text>下拉刷新...</Text> : null}
+                    {this.state.pullok ? <Text>松开刷新......</Text> : null}
+                    {this.state.pullrelease ? <Text>玩命刷新中......</Text> : null}
+                </View>
+            );
         } else {
             let {pulling, pullok, pullrelease} = this.state;
-            topIndicator = this.props.topIndicatorRender(pulling, pullok, pullrelease);
+            topIndicator = this.props.topIndicatorRender(pulling, pullok, pullrelease, this.state.gesturePosition);
         }
 
         return (
