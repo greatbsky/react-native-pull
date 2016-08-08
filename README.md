@@ -64,11 +64,13 @@
   * **`onPulling`**: handle function when `pulling`
   * **`onPullOk`**: handle function when `pullok`
   * **`onPullRelease`**: handle function when `pullrelease`, access 1 argument: `resolve`. You should invoke `resolve()` in the end.
-  * **`onPushing`**: handle function when pushing up, access 1 argument: `gesturePosition`. gesturePosition contain value {x,y}. gesturePosition.y > 0 when pulling down, gesturePosition.y < 0 when pushing up.
   * **`topIndicatorRender`**: top indicator render function, access 4 argument: `ispulling`, `ispullok`, `ispullrelease`, `gesturePosition`. you can design yourself topIndicator with animation when pulling using `gesturePosition`.
   * **`topIndicatorHeight`**: top indicator height, require if define topIndicatorRender
   * **`isPullEnd`**: whether release pull, if true, will hide top indicator, not require
 
+  **Push up props for `PullView` &amp; `PullList`**
+
+  * **`onPushing`**: handle function when pushing up, access 1 argument: `gesturePosition`. gesturePosition contain value {x,y}. gesturePosition.y > 0 when pulling down, gesturePosition.y < 0 when pushing up.
 
 **Just for `PullView`, refreshcontrol props** support onRefresh & refreshing if you want to use refreshcontrol like scrollview.
 
