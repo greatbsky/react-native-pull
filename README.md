@@ -68,7 +68,7 @@
   * **`topIndicatorHeight`**: top indicator height, require if define topIndicatorRender
   * **`isPullEnd`**: whether release pull, if true, will hide top indicator, not require
 
-  **Push up props for `PullView` &amp; `PullList`**
+**Push up props for `PullView` &amp; `PullList`**
 
   * **`onPushing`**: handle function when pushing up, access 1 argument: `gesturePosition`. gesturePosition contain value {x,y}. gesturePosition.y > 0 when pulling down, gesturePosition.y < 0 when pushing up.
 
