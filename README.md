@@ -26,7 +26,9 @@
 
   onPullRelease(resolve) {
     //do something
-    resolve();
+    setTimeout(() => {
+            resolve();
+        }, 3000);
   }
 
   <PullView onPullRelease={this.onPullRelease}>
@@ -48,7 +50,9 @@
 
     onPullRelease(resolve) {
       //do something
-      resolve();
+      setTimeout(() => {
+            resolve();
+        }, 3000);
     }
 
     <PullList onPullRelease={this.onPullRelease} {...and some ListView Props}/>
