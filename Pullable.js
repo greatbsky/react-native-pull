@@ -31,7 +31,7 @@ const isVerticalGesture = (x, y) => {
 export default class extends Component {
     constructor(props) {
         super(props);
-        this.defaultScrollEnabled = !(this.props.onPulling || this.props.onPullOk || this.props.onPullRelease); //定义onPull***属性时scrollEnabled为false
+        this.defaultScrollEnabled = false; //!(this.props.onPulling || this.props.onPullOk || this.props.onPullRelease); //定义onPull***属性时scrollEnabled为false
         var topIndicatorHeight = this.props.topIndicatorHeight ? this.props.topIndicatorHeight : defaultTopIndicatorHeight;
         this.defaultXY = {x: 0, y: topIndicatorHeight * -1};
         this.pullOkMargin = this.props.pullOkMargin ? this.props.pullOkMargin : pullOkMargin;
@@ -61,10 +61,15 @@ export default class extends Component {
         if (!isVerticalGesture(gesture.dx, gesture.dy)) { //非向上 或向下手势不响应
             return false;
         }
-        if (this.props.onPulling || this.props.onPullOk || this.props.onPullRelease) {
-            return !this.state.scrollEnabled;
+        // if (this.props.onPulling || this.props.onPullOk || this.props.onPullRelease) {
+        //     return !this.state.scrollEnabled;
+        // }
+        if (!this.state.scrollEnabled) {
+            this.lastY = this.state.pullPan.y._value;
+            return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     onPanResponderMove(e, gesture) {
@@ -79,7 +84,7 @@ export default class extends Component {
             }
             return;
         } else if (isDownGesture(gesture.dx, gesture.dy)) { //下拉
-            this.state.pullPan.setValue({x: this.defaultXY.x, y: this.defaultXY.y + gesture.dy / 3});
+            this.state.pullPan.setValue({x: this.defaultXY.x, y: this.lastY + gesture.dy / 3});
             if (gesture.dy < this.state.topIndicatorHeight + this.pullOkMargin) { //正在下拉
                 if (!this.state.pulling) {
                     this.props.onPulling && this.props.onPulling(this.resetDefaultXYHandler);
@@ -100,7 +105,11 @@ export default class extends Component {
         }
         if (this.state.pullok) {
             if (!this.state.pullrelease) {
-                this.props.onPullRelease && this.props.onPullRelease(this.resetDefaultXYHandler);
+                if (this.props.onPullRelease) {
+                     this.props.onPullRelease(this.resetDefaultXYHandler);
+                } else {
+                    setTimeout(() => {this.resetDefaultXYHandler()}, 3000);
+                }
             }
             this.setState({pulling: false, pullok: false, pullrelease: true}); //完成下拉，已松开
             Animated.timing(this.state.pullPan, {
@@ -124,7 +133,7 @@ export default class extends Component {
     }
 
     resetDefaultXYHandler() {
-        if (this.state.pullrelease) {
+        if (this.state.pulling || this.state.pullrelease) {
             this.setState({pulling: false, pullok: false, pullrelease: false});
             this.state.pullPan.setValue(this.defaultXY);
         }
