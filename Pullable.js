@@ -17,6 +17,7 @@ import styles from './style/index.css';
 // const padding = 2; //scrollview与外面容器的距离
 const pullOkMargin = 100; //下拉到ok状态时topindicator距离顶部的距离
 const defaultTopIndicatorHeight = 30; //顶部刷新指示器的高度
+const defaultDuration = 300;
 const isDownGesture = (x, y) => {
     return y > 0 && (y > Math.abs(x));
 };
@@ -34,6 +35,7 @@ export default class extends Component {
         var topIndicatorHeight = this.props.topIndicatorHeight ? this.props.topIndicatorHeight : defaultTopIndicatorHeight;
         this.defaultXY = {x: 0, y: topIndicatorHeight * -1};
         this.pullOkMargin = this.props.pullOkMargin ? this.props.pullOkMargin : pullOkMargin;
+        this.duration = this.props.duration ? this.props.duration : defaultDuration;
         this.state = Object.assign({}, props, {
             pullPan: new Animated.ValueXY(this.defaultXY),
             scrollEnabled: this.defaultScrollEnabled,
@@ -104,7 +106,7 @@ export default class extends Component {
             Animated.timing(this.state.pullPan, {
                 toValue: {x: 0, y: 0},
                 easing: Easing.linear,
-                duration: 300
+                duration: this.duration
             }).start();
         }
     }
@@ -122,8 +124,10 @@ export default class extends Component {
     }
 
     resetDefaultXYHandler() {
-        this.setState({pulling: false, pullok: false, pullrelease: false});
-        this.state.pullPan.setValue(this.defaultXY);
+        if (this.state.pullrelease) {
+            this.setState({pulling: false, pullok: false, pullrelease: false});
+            this.state.pullPan.setValue(this.defaultXY);
+        }
     }
 
     componentWillUpdate(nextProps, nextState) {
