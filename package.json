@@ -1,6 +1,6 @@
 {
   "name": "react-native-pull",
-  "version": "1.0.13",
+  "version": "1.1.0",
   "description": "PullView & PullList component in React Native for both Android and iOS, pull to refresh",
   "main": "index.js",
   "scripts": {
@@ -17,8 +17,7 @@
     "pull",
     "to",
     "refresh",
-    "React",
-    "Native",
+    "React Native",
     "ScrollView",
     "ListView"
   ],

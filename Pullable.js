@@ -32,7 +32,7 @@ export default class extends Component {
     constructor(props) {
         super(props);
         this.defaultScrollEnabled = false; //!(this.props.onPulling || this.props.onPullOk || this.props.onPullRelease); //定义onPull***属性时scrollEnabled为false
-        var topIndicatorHeight = this.props.topIndicatorHeight ? this.props.topIndicatorHeight : defaultTopIndicatorHeight;
+        let topIndicatorHeight = this.props.topIndicatorHeight ? this.props.topIndicatorHeight : defaultTopIndicatorHeight;
         this.defaultXY = {x: 0, y: topIndicatorHeight * -1};
         this.pullOkMargin = this.props.pullOkMargin ? this.props.pullOkMargin : pullOkMargin;
         this.duration = this.props.duration ? this.props.duration : defaultDuration;
