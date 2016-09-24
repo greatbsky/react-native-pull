@@ -31,6 +31,7 @@ const isVerticalGesture = (x, y) => {
 export default class extends Component {
     constructor(props) {
         super(props);
+        this.pullable = this.props.refreshControl == null;
         this.defaultScrollEnabled = false; //!(this.props.onPulling || this.props.onPullOk || this.props.onPullRelease); //定义onPull***属性时scrollEnabled为false
         let topIndicatorHeight = this.props.topIndicatorHeight ? this.props.topIndicatorHeight : defaultTopIndicatorHeight;
         this.defaultXY = {x: 0, y: topIndicatorHeight * -1};
@@ -58,7 +59,7 @@ export default class extends Component {
     }
 
     onShouldSetPanResponder(e, gesture) {
-        if (!isVerticalGesture(gesture.dx, gesture.dy)) { //非向上 或向下手势不响应
+        if (!this.pullable || !isVerticalGesture(gesture.dx, gesture.dy)) { //不使用pullable,或非向上 或向下手势不响应
             return false;
         }
         // if (this.props.onPulling || this.props.onPullOk || this.props.onPullRelease) {
@@ -152,9 +153,9 @@ export default class extends Component {
 
     render() {
         let refreshControl = this.props.refreshControl;
-        if (this.props.refreshControl == null && this.props.refreshing != null && this.props.onRefresh != null) {
-            refreshControl = <RefreshControl refreshing={this.props.refreshing} onRefresh={this.props.onRefresh} />;
-        }
+        // if (this.props.refreshControl == null && this.props.refreshing != null && this.props.onRefresh != null) {
+        //     refreshControl = <RefreshControl refreshing={this.props.refreshing} onRefresh={this.props.onRefresh} />;
+        // }
         let topIndicator;
         if (this.props.topIndicatorRender == null) {
             topIndicator = (
