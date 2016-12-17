@@ -12,7 +12,7 @@ import {
     ActivityIndicator,
 } from 'react-native';
 
-import styles from './style/index.css';
+import styles from './style/index.css.js';
 
 // const padding = 2; //scrollview与外面容器的距离
 const pullOkMargin = 100; //下拉到ok状态时topindicator距离顶部的距离
