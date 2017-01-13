@@ -1,6 +1,6 @@
 # react-native-pull
 
-[![reactnative Version](https://img.shields.io/badge/reactnative-V0.30.0%2B-brightgreen.svg)](http://facebook.github.io/react-native/versions.html)
+[![reactnative Version](https://img.shields.io/badge/reactnative-V0.40.0%2B-brightgreen.svg)](http://facebook.github.io/react-native/versions.html)
 [![NPM Version](https://img.shields.io/npm/v/react-native-pull.svg?style=flat-square)](https://www.npmjs.com/package/react-native-pull)
 [![GitHub issues](https://img.shields.io/github/issues/greatbsky/react-native-pull.svg)](https://github.com/greatbsky/react-native-pull/issues)
 [![GitHub stars](https://img.shields.io/github/stars/greatbsky/react-native-pull.svg)](https://github.com/greatbsky/react-native-pull/stargazers)
