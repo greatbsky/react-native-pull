@@ -12,7 +12,7 @@ import {
     ActivityIndicator,
 } from 'react-native';
 
-import styles from './style/index.css.js';
+import styles from './style/index.css';
 
 // const padding = 2; //scrollview与外面容器的距离
 const pullOkMargin = 100; //下拉到ok状态时topindicator距离顶部的距离
@@ -161,7 +161,7 @@ export default class extends Component {
         let topIndicator;
         if (this.props.topIndicatorRender == null) {
             topIndicator = (
-                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: defaultTopIndicatorHeight}}>
+                <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: defaultTopIndicatorHeight}}>
                     <ActivityIndicator size="small" color="gray" />
                     {this.state.pulling ? <Text>下拉刷新...</Text> : null}
                     {this.state.pullok ? <Text>松开刷新......</Text> : null}
