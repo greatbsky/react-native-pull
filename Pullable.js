@@ -12,11 +12,11 @@ import {
     ActivityIndicator,
 } from 'react-native';
 
-import styles from './style/index.css';
+import styles from './style/index.css.js';
 
 // const padding = 2; //scrollview与外面容器的距离
 const pullOkMargin = 100; //下拉到ok状态时topindicator距离顶部的距离
-const defaultTopIndicatorHeight = 30; //顶部刷新指示器的高度
+const defaultTopIndicatorHeight = 60; //顶部刷新指示器的高度
 const defaultDuration = 300;
 const isDownGesture = (x, y) => {
     return y > 0 && (y > Math.abs(x));
