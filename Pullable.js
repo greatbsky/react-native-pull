@@ -10,8 +10,10 @@ import {
     Easing,
     Dimensions,
     ActivityIndicator,
+    NativeModules
 } from 'react-native';
 
+import i18n from './i18n';
 import styles from './style/index.css.js';
 
 // const padding = 2; //scrollview与外面容器的距离
@@ -163,9 +165,9 @@ export default class extends Component {
             topIndicator = (
                 <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: defaultTopIndicatorHeight}}>
                     <ActivityIndicator size="small" color="gray" />
-                    {this.state.pulling ? <Text>下拉刷新...</Text> : null}
-                    {this.state.pullok ? <Text>松开刷新......</Text> : null}
-                    {this.state.pullrelease ? <Text>玩命刷新中......</Text> : null}
+                    {this.state.pulling ? <Text>{i18n.pulling}</Text> : null}
+                    {this.state.pullok ? <Text>{i18n.pullok}</Text> : null}
+                    {this.state.pullrelease ? <Text>{i18n.pullrelease}</Text> : null}
                 </View>
             );
         } else {
