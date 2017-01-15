@@ -8,7 +8,7 @@
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/greatbsky/react-native-pull.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
 
 
-  This is  the `PullView` & `PullList` component in React Native both for Android and iOS, pull to refresh, very useful &amp; easily &amp; quickly!
+  This is  the `PullView` & `PullList` component in React Native both for Android and iOS, pull to refresh, very useful &amp; easily!
 
   This is a JavaScript-only implementation of `PullView` & `PullList` in React Native. `PullView` can host multiple components and views like `ScrollView`, `PullList` can efficient display of vertically scrolling lists of changing data like `ListView`. Better than ScrollView & ListView  in Android, this `PullView` & `PullList` can be pull down, then show top indicator, the top indicator have three state: **pulling**, **pullok**, **pullrelease**. And more, `PullView` also can make you use refreshControl to provide pull-to-refresh same as scrollview. `PullList` also can make you use any props like ListView. You also can design yourself topIndicator with animation during the process of pulling or pushing using function `topIndicatorRender` and `onPushing`.
 
@@ -19,7 +19,7 @@
   ![](https://raw.githubusercontent.com/greatbsky/react-native-pull-demo/master/PullViewDemo/image/demo.gif)
 
 ## `PullView` Usage
-  1. Run `npm install react-native-pull@latest --save`
+  1. Run `npm install react-native-pull --save`
   2. Code like this:
   ```
   import {PullView} from 'react-native-pull';
@@ -43,7 +43,7 @@
   ![](https://raw.githubusercontent.com/greatbsky/react-native-pull-demo/master/PullListDemo/image/demo.gif)
 
 ## `PullList` Usage
-  1. Run `npm install react-native-pull@latest --save`
+  1. Run `npm install react-native-pull --save`
   2. Code like this:
   ```
     import {PullList} from 'react-native-pull';

@@ -9,7 +9,8 @@ import {
     Animated,
     Easing,
     Dimensions,
-    ActivityIndicator
+    ActivityIndicator,
+    NativeModules
 } from 'react-native';
 
 import i18n from './i18n';
@@ -17,12 +18,8 @@ import styles from './style/index.css.js';
 
 // const padding = 2; //scrollview与外面容器的距离
 const pullOkMargin = 100; //下拉到ok状态时topindicator距离顶部的距离
-const defaultDuration = 300;
 const defaultTopIndicatorHeight = 60; //顶部刷新指示器的高度
-const defaultFlag = {pulling: false, pullok: false, pullrelease: false};
-const flagPulling = {pulling: true, pullok: false, pullrelease: false};
-const flagPullok = {pulling: false, pullok: true, pullrelease: false};
-const flagPullrelease = {pulling: false, pullok: false, pullrelease: true};
+const defaultDuration = 300;
 const isDownGesture = (x, y) => {
     return y > 0 && (y > Math.abs(x));
 };
@@ -38,25 +35,21 @@ export default class extends Component {
         super(props);
         this.pullable = this.props.refreshControl == null;
         this.defaultScrollEnabled = false; //!(this.props.onPulling || this.props.onPullOk || this.props.onPullRelease); //定义onPull***属性时scrollEnabled为false
-        this.topIndicatorHeight = this.props.topIndicatorHeight ? this.props.topIndicatorHeight : defaultTopIndicatorHeight;
-        this.defaultXY = {x: 0, y: this.topIndicatorHeight * -1};
+        let topIndicatorHeight = this.props.topIndicatorHeight ? this.props.topIndicatorHeight : defaultTopIndicatorHeight;
+        this.defaultXY = {x: 0, y: topIndicatorHeight * -1};
         this.pullOkMargin = this.props.pullOkMargin ? this.props.pullOkMargin : pullOkMargin;
         this.duration = this.props.duration ? this.props.duration : defaultDuration;
         this.state = Object.assign({}, props, {
             pullPan: new Animated.ValueXY(this.defaultXY),
             scrollEnabled: this.defaultScrollEnabled,
-            flag: defaultFlag,
-            height: 0
+            height: 0,
+            topIndicatorHeight: topIndicatorHeight,
+            gesturePosition: {x: 0, y: 0}
         });
-        this.gesturePosition = {x: 0, y: 0};
         this.onScroll = this.onScroll.bind(this);
         this.onLayout = this.onLayout.bind(this);
         this.isPullState = this.isPullState.bind(this);
         this.resetDefaultXYHandler = this.resetDefaultXYHandler.bind(this);
-        this.resolveHandler = this.resolveHandler.bind(this);
-        this.setFlag = this.setFlag.bind(this);
-        this.renderTopIndicator = this.renderTopIndicator.bind(this);
-        this.defaultTopIndicatorRender = this.defaultTopIndicatorRender.bind(this);
         this.panResponder = PanResponder.create({
             onStartShouldSetPanResponder: this.onShouldSetPanResponder.bind(this),
             onMoveShouldSetPanResponder: this.onShouldSetPanResponder.bind(this),
@@ -65,7 +58,6 @@ export default class extends Component {
             onPanResponderRelease: this.onPanResponderRelease.bind(this),
             onPanResponderTerminate: this.onPanResponderRelease.bind(this),
         });
-        this.setFlag(defaultFlag);
     }
 
     onShouldSetPanResponder(e, gesture) {
@@ -84,45 +76,45 @@ export default class extends Component {
     }
 
     onPanResponderMove(e, gesture) {
-        this.gesturePosition = {x: this.defaultXY.x, y: gesture.dy};
+        this.state.gesturePosition = {x: this.defaultXY.x, y: gesture.dy};
         if (isUpGesture(gesture.dx, gesture.dy)) { //向上滑动
             if(this.isPullState()) {
-                this.resetDefaultXYHandler();
-            } else if(this.props.onPushing && this.props.onPushing(this.gesturePosition)) {
+                this.resetDefaultXYHandler()
+            } else if(this.props.onPushing && this.props.onPushing(this.state.gesturePosition)) {
                 // do nothing, handling by this.props.onPushing
             } else {
                 this.scroll.scrollTo({x:0, y: gesture.dy * -1});
             }
             return;
         } else if (isDownGesture(gesture.dx, gesture.dy)) { //下拉
-            this.state.pullPan.setValue({x: this.defaultXY.x, y: this.lastY + gesture.dy / 2});
-            if (gesture.dy < this.topIndicatorHeight + this.pullOkMargin) { //正在下拉
-                if (!this.flag.pulling) {
-                    this.props.onPulling && this.props.onPulling();
+            this.state.pullPan.setValue({x: this.defaultXY.x, y: this.lastY + gesture.dy / 3});
+            if (gesture.dy < this.state.topIndicatorHeight + this.pullOkMargin) { //正在下拉
+                if (!this.state.pulling) {
+                    this.props.onPulling && this.props.onPulling(this.resetDefaultXYHandler);
                 }
-                this.setFlag(flagPulling);
+                this.setState({pulling: true, pullok: false, pullrelease: false});
             } else { //下拉到位
                 if (!this.state.pullok) {
-                    this.props.onPullOk && this.props.onPullOk();
+                    this.props.onPullOk && this.props.onPullOk(this.resetDefaultXYHandler);
                 }
-                this.setFlag(flagPullok);
+                this.setState({pulling: false, pullok: true, pullrelease: false});
             }
         }
     }
 
     onPanResponderRelease(e, gesture) {
-        if (this.flag.pulling) { //没有下拉到位
+        if (this.state.pulling) { //没有下拉到位
             this.resetDefaultXYHandler(); //重置状态
         }
-        if (this.flag.pullok) {
-            if (!this.flag.pullrelease) {
+        if (this.state.pullok) {
+            if (!this.state.pullrelease) {
                 if (this.props.onPullRelease) {
-                     this.props.onPullRelease(this.resolveHandler);
+                     this.props.onPullRelease(this.resetDefaultXYHandler);
                 } else {
                     setTimeout(() => {this.resetDefaultXYHandler()}, 3000);
                 }
             }
-            this.setFlag(flagPullrelease); //完成下拉，已松开
+            this.setState({pulling: false, pullok: false, pullrelease: true}); //完成下拉，已松开
             Animated.timing(this.state.pullPan, {
                 toValue: {x: 0, y: 0},
                 easing: Easing.linear,
@@ -140,40 +132,14 @@ export default class extends Component {
     }
 
     isPullState() {
-        return this.flag.pulling || this.flag.pullok || this.flag.pullrelease;
-    }
-
-    setFlag(flag) {
-        if (this.flag != flag) {
-            this.flag = flag;
-            this.renderTopIndicator();
-            // this.txt.setNativeProps({text: `${Math.random()}`}); // setNativeProps可解决滑动卡顿问题，以下代码都没有解决
-            // if(this.flag.pullok) {
-            //     InteractionManager.runAfterInteractions(() => {
-            //         this.setState({flag: this.flag});
-            //     });
-            // } else {
-                // this.setState({flag: this.flag});
-            // }
-
-            // requestAnimationFrame(() => {
-            //     this.setState({flag: this.flag});
-            // });
-            // this.setState({topIndicator: this.renderTopIndicator()});
-        }
-    }
-
-    /** 数据加载完成后调用此方法进行重置归位
-    */
-    resolveHandler() {
-        if (this.flag.pullrelease) { //仅触摸松开时才触发
-            this.resetDefaultXYHandler();
-        }
+        return this.state.pulling || this.state.pullok || this.state.pullrelease;
     }
 
     resetDefaultXYHandler() {
-        this.flag = defaultFlag;
-        this.state.pullPan.setValue(this.defaultXY);
+        if (this.state.pulling || this.state.pullrelease) {
+            this.setState({pulling: false, pullok: false, pullrelease: false});
+            this.state.pullPan.setValue(this.defaultXY);
+        }
     }
 
     componentWillUpdate(nextProps, nextState) {
@@ -191,51 +157,32 @@ export default class extends Component {
 
     render() {
         let refreshControl = this.props.refreshControl;
+        // if (this.props.refreshControl == null && this.props.refreshing != null && this.props.onRefresh != null) {
+        //     refreshControl = <RefreshControl refreshing={this.props.refreshing} onRefresh={this.props.onRefresh} />;
+        // }
+        let topIndicator;
+        if (this.props.topIndicatorRender == null) {
+            topIndicator = (
+                <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: defaultTopIndicatorHeight}}>
+                    <ActivityIndicator size="small" color="gray" />
+                    {this.state.pulling ? <Text>{i18n.pulling}</Text> : null}
+                    {this.state.pullok ? <Text>{i18n.pullok}</Text> : null}
+                    {this.state.pullrelease ? <Text>{i18n.pullrelease}</Text> : null}
+                </View>
+            );
+        } else {
+            let {pulling, pullok, pullrelease} = this.state;
+            topIndicator = this.props.topIndicatorRender(pulling, pullok, pullrelease, this.state.gesturePosition);
+        }
+
         return (
             <View style={[styles.wrap, this.props.style]} onLayout={this.onLayout}>
                 <Animated.View ref={(c) => {this.ani = c;}} style={[this.state.pullPan.getLayout()]}>
-                    {this.renderTopIndicator()}
+                    {topIndicator}
                     <View {...this.panResponder.panHandlers} style={{width: this.state.width, height: this.state.height}}>
                         {this.getScrollable(refreshControl)}
                     </View>
                 </Animated.View>
-            </View>
-        );
-    }
-
-    renderTopIndicator() {
-        let { pulling, pullok, pullrelease } = this.flag;
-        if (this.props.topIndicatorRender == null) {
-            return this.defaultTopIndicatorRender(pulling, pullok, pullrelease, this.gesturePosition);
-        } else {
-            return this.props.topIndicatorRender(pulling, pullok, pullrelease, this.gesturePosition);
-        }
-    }
-
-    /**
-    使用setNativeProps解决卡顿问题
-    make changes directly to a component without using state/props to trigger a re-render of the entire subtree
-    */
-    defaultTopIndicatorRender(pulling, pullok, pullrelease, gesturePosition) {
-        if (pulling) {
-            this.txtPulling && this.txtPulling.setNativeProps({style: styles.show});
-            this.txtPullok && this.txtPullok.setNativeProps({style: styles.hide});
-            this.txtPullrelease && this.txtPullrelease.setNativeProps({style: styles.hide});
-        } else if (pullok) {
-            this.txtPulling && this.txtPulling.setNativeProps({style: styles.hide});
-            this.txtPullok && this.txtPullok.setNativeProps({style: styles.show});
-            this.txtPullrelease && this.txtPullrelease.setNativeProps({style: styles.hide});
-        } else if (pullrelease) {
-            this.txtPulling && this.txtPulling.setNativeProps({style: styles.hide});
-            this.txtPullok && this.txtPullok.setNativeProps({style: styles.hide});
-            this.txtPullrelease && this.txtPullrelease.setNativeProps({style: styles.show});
-        }
-        return (
-            <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: defaultTopIndicatorHeight}}>
-                <ActivityIndicator size="small" color="gray" />
-                <Text ref={(c) => {this.txtPulling = c;}} style={styles.hide}>{i18n.pulling}</Text>
-                <Text ref={(c) => {this.txtPullok = c;}} style={styles.hide}>{i18n.pullok}</Text>
-                <Text ref={(c) => {this.txtPullrelease = c;}} style={styles.hide}>{i18n.pullrelease}</Text>
             </View>
         );
     }
