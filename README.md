@@ -19,7 +19,7 @@
   ![](https://raw.githubusercontent.com/greatbsky/react-native-pull-demo/master/PullViewDemo/image/demo.gif)
 
 ## `PullView` Usage
-  1. Run `npm install react-native-pull --save`
+  1. Run `npm install react-native-pull@latest --save`
   2. Code like this:
   ```
   import {PullView} from 'react-native-pull';
@@ -43,7 +43,7 @@
   ![](https://raw.githubusercontent.com/greatbsky/react-native-pull-demo/master/PullListDemo/image/demo.gif)
 
 ## `PullList` Usage
-  1. Run `npm install react-native-pull --save`
+  1. Run `npm install react-native-pull@latest --save`
   2. Code like this:
   ```
     import {PullList} from 'react-native-pull';
