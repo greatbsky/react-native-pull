@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 
 import i18n from './i18n';
-import styles from './style/index.css.js';
+import styles from './style/index.js';
 
 // const padding = 2; //scrollview与外面容器的距离
 const pullOkMargin = 100; //下拉到ok状态时topindicator距离顶部的距离
