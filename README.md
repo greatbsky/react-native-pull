@@ -2,6 +2,7 @@
 
 [![reactnative Version](https://img.shields.io/badge/reactnative-V0.40.0%2B-brightgreen.svg)](http://facebook.github.io/react-native/versions.html)
 [![NPM Version](https://img.shields.io/npm/v/react-native-pull.svg?style=flat-square)](https://www.npmjs.com/package/react-native-pull)
+[![NPM Downloads](https://img.shields.io/npm/dm/react-native-pull.svg?style=flat-square)](https://www.npmjs.com/package/react-native-pull)
 [![GitHub issues](https://img.shields.io/github/issues/greatbsky/react-native-pull.svg)](https://github.com/greatbsky/react-native-pull/issues)
 [![GitHub stars](https://img.shields.io/github/stars/greatbsky/react-native-pull.svg)](https://github.com/greatbsky/react-native-pull/stargazers)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/greatbsky/react-native-pull/master/LICENSE)
