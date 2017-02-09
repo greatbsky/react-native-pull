@@ -217,19 +217,21 @@ export default class extends Component {
     make changes directly to a component without using state/props to trigger a re-render of the entire subtree
     */
     defaultTopIndicatorRender(pulling, pullok, pullrelease, gesturePosition) {
-        if (pulling) {
-            this.txtPulling && this.txtPulling.setNativeProps({style: styles.show});
-            this.txtPullok && this.txtPullok.setNativeProps({style: styles.hide});
-            this.txtPullrelease && this.txtPullrelease.setNativeProps({style: styles.hide});
-        } else if (pullok) {
-            this.txtPulling && this.txtPulling.setNativeProps({style: styles.hide});
-            this.txtPullok && this.txtPullok.setNativeProps({style: styles.show});
-            this.txtPullrelease && this.txtPullrelease.setNativeProps({style: styles.hide});
-        } else if (pullrelease) {
-            this.txtPulling && this.txtPulling.setNativeProps({style: styles.hide});
-            this.txtPullok && this.txtPullok.setNativeProps({style: styles.hide});
-            this.txtPullrelease && this.txtPullrelease.setNativeProps({style: styles.show});
-        }
+        setTimeout(() => {
+            if (pulling) {
+                this.txtPulling && this.txtPulling.setNativeProps({style: styles.show});
+                this.txtPullok && this.txtPullok.setNativeProps({style: styles.hide});
+                this.txtPullrelease && this.txtPullrelease.setNativeProps({style: styles.hide});
+            } else if (pullok) {
+                this.txtPulling && this.txtPulling.setNativeProps({style: styles.hide});
+                this.txtPullok && this.txtPullok.setNativeProps({style: styles.show});
+                this.txtPullrelease && this.txtPullrelease.setNativeProps({style: styles.hide});
+            } else if (pullrelease) {
+                this.txtPulling && this.txtPulling.setNativeProps({style: styles.hide});
+                this.txtPullok && this.txtPullok.setNativeProps({style: styles.hide});
+                this.txtPullrelease && this.txtPullrelease.setNativeProps({style: styles.show});
+            }
+        }, 1);
         return (
             <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: defaultTopIndicatorHeight}}>
                 <ActivityIndicator size="small" color="gray" />
