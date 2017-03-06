@@ -184,8 +184,9 @@ export default class extends Component {
 
     onLayout(e) {
         if (this.state.width != e.nativeEvent.layout.width || this.state.height != e.nativeEvent.layout.height) {
-            this.setState({width: e.nativeEvent.layout.width});
-            this.setState({height: e.nativeEvent.layout.height});
+            this.scrollContainer.setNativeProps({style: {width: e.nativeEvent.layout.width, height: e.nativeEvent.layout.height}});
+            this.width = e.nativeEvent.layout.width;
+            this.height = e.nativeEvent.layout.height;
         }
     }
 
@@ -195,7 +196,7 @@ export default class extends Component {
             <View style={[styles.wrap, this.props.style]} onLayout={this.onLayout}>
                 <Animated.View ref={(c) => {this.ani = c;}} style={[this.state.pullPan.getLayout()]}>
                     {this.renderTopIndicator()}
-                    <View {...this.panResponder.panHandlers} style={{width: this.state.width, height: this.state.height}}>
+                    <View ref={(c) => {this.scrollContainer = c;}} {...this.panResponder.panHandlers} style={{width: this.state.width, height: this.state.height}}>
                         {this.getScrollable(refreshControl)}
                     </View>
                 </Animated.View>

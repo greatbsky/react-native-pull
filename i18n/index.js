@@ -2,11 +2,15 @@ import { Platform, NativeModules } from 'react-native';
 import all from './All.js';
 
 function getLocale() {
-    if (Platform.OS === 'android') {
-        return NativeModules.I18nManager.localeIdentifier;
-    } else {
-        return NativeModules.SettingsManager.settings.AppleLocale;
-    }
+    try {
+        if (Platform.OS === 'android') {
+            return NativeModules.I18nManager.localeIdentifier;
+        } else {
+            return NativeModules.SettingsManager.settings.AppleLocale;
+        }
+    } catch (e) {
+        return null;
+    } finally {}
 }
 function getI18N(v) {
     let locale = getLocale();
