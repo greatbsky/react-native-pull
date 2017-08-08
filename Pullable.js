@@ -173,7 +173,11 @@ export default class extends Component {
 
     resetDefaultXYHandler() {
         this.flag = defaultFlag;
-        this.state.pullPan.setValue(this.defaultXY);
+        Animated.timing(this.state.pullPan, {
+            toValue: this.defaultXY,
+            easing: Easing.linear,
+            duration: this.duration
+        }).start();
     }
 
     componentWillUpdate(nextProps, nextState) {
