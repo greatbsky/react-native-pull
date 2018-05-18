@@ -8,7 +8,7 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/greatbsky/react-native-pull/master/LICENSE)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/greatbsky/react-native-pull.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
 
-Announcement: Due to work transfer, I have no more time to maintain the project. I suggest that you need to directly integrate the code and customize the changes. Sorry...
+Announcement: Due to work changed, I have no more time to maintain the project. I suggest that you need to directly integrate the code and customize the changes. Sorry...
 
   This is  the `PullView` & `PullList` component in React Native both for Android and iOS, pull to refresh, very useful &amp; easily &amp; quickly!
 
