@@ -183,10 +183,12 @@ export default class extends Component {
     }
 
     onLayout(e) {
-        if (this.state.width != e.nativeEvent.layout.width || this.state.height != e.nativeEvent.layout.height) {
-            this.scrollContainer.setNativeProps({style: {width: e.nativeEvent.layout.width, height: e.nativeEvent.layout.height}});
-            this.width = e.nativeEvent.layout.width;
-            this.height = e.nativeEvent.layout.height;
+        const { width, height } = e.nativeEvent.layout
+        // bug fix: 如果列表是 tabs 分组的情况，切换 tab 会引发 View 的二次 layout，这时候取到的高度是 0
+        if ((width != 0 && height != 0) || this.state.width != width || this.state.height != height) {
+            this.scrollContainer.setNativeProps({style: {width, height}});
+            this.width = width;
+            this.height = height;
         }
     }
 
