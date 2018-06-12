@@ -173,7 +173,11 @@ export default class extends Component {
 
     resetDefaultXYHandler() {
         this.flag = defaultFlag;
-        this.state.pullPan.setValue(this.defaultXY);
+        Animated.timing(this.state.pullPan, {
+            toValue: this.defaultXY,
+            easing: Easing.linear,
+            duration: this.duration
+        }).start();
     }
 
     componentWillUpdate(nextProps, nextState) {
@@ -195,7 +199,7 @@ export default class extends Component {
     render() {
         let refreshControl = this.props.refreshControl;
         return (
-            <View style={[styles.wrap, this.props.style]} onLayout={this.onLayout}>
+            <View style={[styles.wrap, this.props.styles]} onLayout={this.onLayout}>
                 <Animated.View ref={(c) => {this.ani = c;}} style={[this.state.pullPan.getLayout()]}>
                     {this.renderTopIndicator()}
                     <View ref={(c) => {this.scrollContainer = c;}} {...this.panResponder.panHandlers} style={{width: this.state.width, height: this.state.height}}>

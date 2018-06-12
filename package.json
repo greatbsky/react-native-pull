@@ -1,5 +1,5 @@
 {
-  "name": "react-native-pull",
+  "name": "react-native-pullable",
   "version": "2.0.2",
   "description": "PullView & PullList component in React Native for both Android and iOS, pull to refresh",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/greatbsky/react-native-pull.git"
+    "url": "git+https://github.com/code-artisan/react-native-pull.git"
   },
   "keywords": [
     "react-native-pull",
@@ -24,7 +24,7 @@
   "author": "architect.bian",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/greatbsky/react-native-pull/issues"
+    "url": "https://github.com/code-artisan/react-native-pull/issues"
   },
-  "homepage": "https://github.com/greatbsky/react-native-pull#readme"
+  "homepage": "https://github.com/code-artisan/react-native-pull#readme"
 }
