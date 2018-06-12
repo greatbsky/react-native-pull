@@ -185,8 +185,8 @@ export default class extends Component {
     onLayout(e) {
         const { width, height } = e.nativeEvent.layout
         // bug fix: 如果列表是 tabs 分组的情况，切换 tab 会引发 View 的二次 layout，这时候取到的高度是 0
-        if ((width != 0 && height != 0) || this.state.width != width || this.state.height != height) {
-            this.scrollContainer.setNativeProps({style: {width, height}});
+        if (height != 0 && (this.state.width != width || this.state.height != height)) {
+            this.scrollContainer.setNativeProps({ style: { width, height } });
             this.width = width;
             this.height = height;
         }
