@@ -213,9 +213,9 @@ export default class extends Component {
     renderTopIndicator() {
         let { pulling, pullok, pullrelease } = this.flag;
         if (this.props.topIndicatorRender == null) {
-            return this.defaultTopIndicatorRender(pulling, pullok, pullrelease, this.gesturePosition);
+            return this.defaultTopIndicatorRender(pulling, pullok, pullrelease, this.gesturePosition, this.topIndicatorHeight);
         } else {
-            return this.props.topIndicatorRender(pulling, pullok, pullrelease, this.gesturePosition);
+            return this.props.topIndicatorRender(pulling, pullok, pullrelease, this.gesturePosition, this.topIndicatorHeight);
         }
     }
 
