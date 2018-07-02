@@ -91,7 +91,7 @@ export default class extends Component {
             } else if(this.props.onPushing && this.props.onPushing(this.gesturePosition)) {
                 // do nothing, handling by this.props.onPushing
             } else {
-                this.scroll.scrollTo({x:0, y: gesture.dy * -1});
+                this.scroll.scrollTo({x:0, y: 0});
             }
             return;
         } else if (isDownGesture(gesture.dx, gesture.dy)) { //下拉
