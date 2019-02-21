@@ -50,7 +50,7 @@ export default class extends Pullable {
 
     getScrollable() {
         return (
-            <ListView ref={(c) => {this.scroll = c;}} scrollEnabled={this.state.scrollEnabled} onScroll={this.onScroll} {...this.props} />
+            <ListView ref={(c) => {this.scroll = c;}} onScroll={this.onScroll} {...this.props} />
         );
     }
 }
